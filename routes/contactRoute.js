@@ -80,8 +80,8 @@ contactRoute.post("/", async (req, res) => {
           },
         ],
         content: [{ type: "text/html", value: messageLfish }],
-        from: { email: "ticklme@tickl.ch", name: "lfish" },
-        reply_to: { email: "ticklme@tickl.ch", name: "lfish reply" },
+        from: { email: "lfish-cheznous@lfishtogo.com", name: "lfish" },
+        reply_to: { email: `${email}`, name: `${name}` },
       },
       config
     )
