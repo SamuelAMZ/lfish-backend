@@ -75,7 +75,7 @@ contactRoute.post("/", async (req, res) => {
       {
         personalizations: [
           {
-            to: [{ email: "samueldev09@gmail.com", name: "Lfish" }],
+            to: [{ email: "lfish-cheznous@lfishtogo.com", name: "Lfish" }],
             subject: "Lfish site formulaire de contact",
           },
         ],
