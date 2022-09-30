@@ -36,6 +36,7 @@ contactRoute.post("/", async (req, res) => {
   axios
     .get(captchaUrl)
     .then((res) => {
+      console.log(res);
       console.log("here");
     })
     .catch((err) => {
