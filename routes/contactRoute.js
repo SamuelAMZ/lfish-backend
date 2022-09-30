@@ -4,7 +4,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 contactRoute.post("/", async (req, res) => {
-  const { name, email, phone, message, page, date } = req.body;
+  const { name, email, phone, message, captcha, page, date } = req.body;
 
   //   validate
   const Joi = require("@hapi/joi");
@@ -13,6 +13,7 @@ contactRoute.post("/", async (req, res) => {
     email: Joi.string().required().email().min(10).max(50).lowercase(),
     phone: Joi.string().alphanum().min(7).max(15).required(),
     message: Joi.string().required(),
+    captcha: Joi.string(),
   });
 
   try {
@@ -21,11 +22,25 @@ contactRoute.post("/", async (req, res) => {
       email,
       phone,
       message,
+      captcha,
     });
   } catch (error) {
     res.status(400).json({ message: error.details[0].message });
     return;
   }
+
+  // check captacha is valid
+  let secretKey = process.env.CAPTCHA_SECRET;
+  let captchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}`;
+
+  axios
+    .get(captchaUrl)
+    .then((res) => {
+      console.log("here");
+    })
+    .catch((err) => {
+      return res.status(400).json({ message: "error" });
+    });
 
   // message to send
   let messageLfish = `
