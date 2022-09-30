@@ -36,11 +36,12 @@ contactRoute.post("/", async (req, res) => {
   axios
     .get(captchaUrl)
     .then((res) => {
-      console.log(res);
-      console.log("here");
+      if (res.success !== true) {
+        return res.status(400).json({ message: "erreur" });
+      }
     })
     .catch((err) => {
-      return res.status(400).json({ message: "error" });
+      return res.status(500).json({ message: "erreur" });
     });
 
   // message to send
