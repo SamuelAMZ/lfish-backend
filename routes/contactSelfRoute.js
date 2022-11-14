@@ -4,7 +4,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 contactRoute.post("/", async (req, res) => {
-  const { name, email, message, captcha, page, date } = req.body;
+  const { name, email, message, captcha, date } = req.body;
 
   //   validate
   const Joi = require("@hapi/joi");
@@ -66,7 +66,6 @@ contactRoute.post("/", async (req, res) => {
       <br>
       ----------------
       <br>
-      <p>Page: ${page}</p>
       <p>Date: ${date}</p>
     </div>
   </body>
@@ -95,7 +94,7 @@ contactRoute.post("/", async (req, res) => {
           },
         ],
         content: [{ type: "text/html", value: messageLfish }],
-        from: { email: "lfish-cheznous@lfishtogo.com", name: "lfish" },
+        from: { email: "lfish-cheznous@lfishtogo.com", name: "samuelamz.com" },
         reply_to: { email: `${email}`, name: `${name}` },
       },
       config
