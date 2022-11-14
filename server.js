@@ -5,6 +5,7 @@ const cors = require("cors");
 
 // routes
 const contactRoute = require("./routes/contactRoute");
+const contactSelfRoute = require("./routes/contactSelfRoute");
 
 // body parsing
 app.use(express.json());
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 // contact
 app.use("/lfish/contact", contactRoute);
+app.use("/lfish/contact-self", contactSelfRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

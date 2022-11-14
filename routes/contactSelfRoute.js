@@ -4,14 +4,13 @@ const axios = require("axios");
 require("dotenv").config();
 
 contactRoute.post("/", async (req, res) => {
-  const { name, email, phone, message, captcha, page, date } = req.body;
+  const { name, email, message, captcha, page, date } = req.body;
 
   //   validate
   const Joi = require("@hapi/joi");
   const schema = Joi.object({
     name: Joi.string().max(24).required(),
     email: Joi.string().required().email().max(50).lowercase(),
-    phone: Joi.string().alphanum().max(50).required(),
     message: Joi.string().required().max(1240),
     captcha: Joi.string(),
   });
@@ -20,7 +19,6 @@ contactRoute.post("/", async (req, res) => {
     const validation = await schema.validateAsync({
       name,
       email,
-      phone,
       message,
       captcha,
     });
@@ -30,7 +28,7 @@ contactRoute.post("/", async (req, res) => {
   }
 
   // check captacha is valid
-  let secretKey = process.env.CAPTCHA_SECRET;
+  let secretKey = process.env.CAPTCHA_SELF_SECRET;
   let captchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}`;
   axios
     .get(captchaUrl)
@@ -60,11 +58,10 @@ contactRoute.post("/", async (req, res) => {
     </style>
   </head>
   <body>
-    <h2>Nouveau message venant du formulaire de contact du site</h2>
+    <h2>Nouveau message venant du formulaire de contact du portfolio site</h2>
     <div>
       <p>Nom: ${name}</p>
       <p>Email: ${email}</p>
-      <p>Phone: ${phone}</p>
       <p>Message: ${message}</p>
       <br>
       ----------------
@@ -91,8 +88,10 @@ contactRoute.post("/", async (req, res) => {
       {
         personalizations: [
           {
-            to: [{ email: "lfish-cheznous@lfishtogo.com", name: "Lfish" }],
-            subject: "Lfish site formulaire de contact",
+            to: [
+              { email: "samueldevpro09@gmail.com", name: "Portfolio contact" },
+            ],
+            subject: "Portfolio Site new contact",
           },
         ],
         content: [{ type: "text/html", value: messageLfish }],
